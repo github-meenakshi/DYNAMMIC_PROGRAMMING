@@ -1,0 +1,39 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <unordered_map>
+#include <math.h>
+#include <iomanip>
+#include <map>
+#include <set>
+using namespace std;
+ //It is the type of Knapsack problem 
+int subset(int arr[ ],int x,int n){
+    int dp[n+1][x+1];
+    for(int i = 0;i<=n;i++){
+        for(int j = 0;j<=x;j++){
+            if(i == 0) dp[i][j] = 0;
+            if(j == 0) dp[i][j] = 1;
+            }
+        }
+        for(int i = 1;i<=n;i++){
+            for(int j = 1;j<=x;j++){
+                if(arr[i]<=j){
+                    dp[i][j] = (dp[i-1][j] + dp[i-1][j-arr[i]]);
+                    }
+                    else dp[i][j] = dp[i-1][j];
+                }
+            }
+            return dp[n][x];
+    }
+int main(){
+    int n,x;
+    cin>>n>>x;
+    int arr[n+1];
+    for(int i = 1;i<=n;i++){
+        cin>>arr[i];
+        }
+        int ans = subset(arr,x,n);
+        cout<<ans<<endl;
+            return 0;
+    }
