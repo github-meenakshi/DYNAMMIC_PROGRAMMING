@@ -1,0 +1,48 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <unordered_map>
+#include <math.h>
+#include <iomanip>
+#include <map>
+#include <set>
+using namespace std;
+ //It is the type of Knapsack problem 
+bool subset(int arr[ ],int sum,int n){
+    //If sum is odd then it is obvious that it can't be divided into two parts
+    if(sum%2 == 1) return 0;
+    //We will just check that if half of 'sum' can be made using any subset 
+    //and if that exists then it is obvious that the whole array can be represented as two equal sums.
+    int half = sum/2;
+    bool dp[n+1][half+1];
+    for(int i = 0;i<=n;i++){
+        for(int j = 0;j<=half;j++){
+            if(i == 0) dp[i][j] = false;
+            if(j == 0) dp[i][j] = true;
+            }
+        }
+        for(int i = 1;i<=n;i++){
+            for(int j = 1;j<=half;j++){
+                if(arr[i]<=j){
+                    dp[i][j] = (dp[i-1][j] || dp[i-1][j-arr[i]]);
+                    }
+                    else dp[i][j] = dp[i-1][j];
+                }
+            }
+            return dp[n][half];
+    }
+int main(){
+    int n,sum = 0;
+    cin>>n;
+    int arr[n+1];
+    for(int i = 1;i<=n;i++){
+        cin>>arr[i];
+        sum+=arr[i];
+        }
+        bool ans = subset(arr,sum,n);
+        if(ans == 0) cout<<"NO"<<endl;
+        else{
+            cout<<"YES"<<endl;
+            }
+            return 0;
+    }
