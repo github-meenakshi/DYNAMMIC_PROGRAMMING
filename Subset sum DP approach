@@ -1,0 +1,56 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <unordered_map>
+#include <math.h>
+#include <iomanip>
+#include <map>
+#include <set>
+using namespace std;
+ 
+bool subset(int arr[ ],int sum,int n){
+//If at any certain point of program our 'sum' becomes 0 , then we will return YES
+if(sum == 0) return 1;
+
+//If at any certain point of program our 'n' becomes 0 , then we will return NO
+if(n == 0) return 0;
+
+//Array tell us that whether at any certain point , we find our desired sum or not . 
+bool dp[n+1][sum+1];
+
+//With this array we will initialise our array 
+for(int i=0;i<=n;i++){
+for(int j = 0;j<=sum;j++){
+if(i == 0) dp[i][j] = false;
+else if(j == 0) dp[i][j] = true;
+}
+}
+
+//With this loop we will reach our final answer i.e dp[n+1][sum+1]
+for(int i = 1;i<=n;i++){
+for(int j = 1;j<=sum;j++){
+if(arr[i]<=j){
+dp[i][j] = (dp[i-1][j] || dp[i-1][j-arr[i]]);
+}
+else dp[i][j] = dp[i-1][j];
+}
+}
+
+return dp[n][sum];
+}
+int main(){
+//n - number of elements
+//sum - required sum
+int n,sum;
+cin>>n>>sum;
+
+int arr[n+1];
+for(int i = 1;i<=n;i++){
+cin>>arr[i];
+}
+bool  ans = subset(arr,sum,n);
+
+if(ans == 1) cout<<"YES"<<endl;
+else cout<<"NO"<<endl;
+return 0;
+}
