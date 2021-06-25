@@ -1,0 +1,45 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <unordered_map>
+#include <math.h>
+#include <iomanip>
+#include <map>
+#include <set>
+using namespace std;
+int check(int arr[ ],int n,int diff,int sum){
+int first = 0,second = 0,count = 0,fake = sum;
+first+=diff;
+fake = fake-diff;
+first+=(fake/2);
+second+=(fake/2);
+int dp[n+1][sum+1];
+for(int i = 0;i<=n;i++){
+for(int j = 0;j<=sum;j++){
+if(i == 0) dp[i][j] = false;
+if(j == 0) dp[i][j] = true;
+}
+}
+for(int i = 1;i<=n;i++){
+for(int j = 1;j<=sum;j++){
+if(arr[i-1]<=j){
+dp[i][j] = (dp[i-1][j] + dp[i-1][j-arr[i-1]]);
+}
+else dp[i][j] = dp[i-1][j];
+}
+}
+count+=dp[n][first];
+count+=dp[n][second];
+return count;
+}
+int main(){
+int n,diff,sum=0;
+cin>>n>>diff;
+int arr[n+1];
+for(int i = 1;i<=n;i++){
+cin>>arr[i];
+sum+=arr[i];
+}
+int ans = check(arr,n,diff,sum);
+cout<<ans<<endl;
+}
