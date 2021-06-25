@@ -1,0 +1,59 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#include <unordered_map>
+#include <math.h>
+#include <iomanip>
+#include <map>
+#include <set>
+using namespace std;
+//** We will initialise the dp array as we did in the subset sum problem . **
+int minimum(int arr[ ],int n,int sum){
+    bool dp[n+1][sum+1];
+    for(int i = 0;i<=n;i++){
+    for(int j = 0;j<=sum;j++){
+    if(i == 0) dp[i][j] = false;
+    if(j == 0) dp[i][j] = true;
+    }
+    }
+    //** As we know that every true at every cell of a matrix represent 
+    //that it is possible in the given array , we will store all true sum 
+    //value of given number of elements.**
+    for(int i = 1;i<=n;i++){
+    for(int j = 1;j<=sum;j++){
+    if(arr[i-1]<=j){
+    dp[i][j] = (dp[i-1][j] || dp[i-1][j-arr[i-1]]);
+    }
+    else dp[i][j] = dp[i-1][j];
+    }
+    }
+    vector<int> vec;
+    int  mini = 1000000;
+    // ** We will see nth row and all columns representing sum of particular value and we will check if that sum
+    //is possible or not in that number of elements in the array. **
+    for(int i = 0;i<=sum/2;i++){
+    if(dp[n][i] == true){
+    vec.push_back(i);
+    }
+    }
+    //**We just stored the value of sum of elements that can exist in the array , and now we will check the minimum 
+    // difference between the sums stored in the vector **
+    for(auto it : vec){
+    int ele = it;
+    mini = min(mini,abs(sum-2*ele));
+    }
+    return mini;
+    }
+int main(){
+    int n,sum = 0;
+    cin>>n;
+    int arr[n+1];
+    for(int i = 1;i<=n;i++){
+    cin>>arr[i];
+    sum+=arr[i];
+    }
+    int ans = minimum(arr,n,sum);
+    cout<<ans<<endl;
+        
+    return 0;
+    }
