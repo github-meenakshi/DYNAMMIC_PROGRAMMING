@@ -1,0 +1,35 @@
+#include <iostream>
+#include <math.h>
+#include <algorithm>
+#include <iomanip>
+#include <set>
+#include <string.h>
+using namespace std;
+//Longest Common Subsequence
+int dp[1001][1001];
+int longest(string &str1,string &str2,int a,int b){
+    if(a == 0 || b == 0) return 0;
+    if(dp[a][b]!=-1) return dp[a][b];
+    if(str1[a-1] == str2[b-1]){
+        return dp[a][b] = (1+longest(str1,str2,a-1,b-1));
+        }
+        else{
+            int first = longest(str1,str2,a-1,b);
+            int second = longest(str1,str2,a,b-1);
+            return dp[a][b] = max(first,second);
+            }
+    } 
+int main(){
+    memset(dp,-1,sizeof(dp));
+    int t;
+    cin>>t;
+    while(t--){
+        int a,b;
+        cin>>a>>b;
+        string str1,str2;
+        cin>>str1>>str2;
+        int ans = longest(str1,str2,a,b);
+        cout<<ans<<endl;
+        }
+        return 0;
+    }
