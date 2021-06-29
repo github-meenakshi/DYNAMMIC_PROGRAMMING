@@ -1,0 +1,35 @@
+#include <iostream>
+#include <math.h>
+#include <algorithm>
+#include <iomanip>
+#include <set>
+#include <string.h>
+using namespace std;
+int longest(int a,int b,string str1,string str2){
+    int dp[a+1][b+1];
+    for(int i = 0;i<=a;i++){
+        for(int j = 0;j<=b;j++){
+            if(i == 0) dp[i][j] = 0;
+            if(j == 0) dp[i][j] = 0;
+            }
+        }
+        for(int i = 1;i<=a;i++){
+            for(int j = 1;j<=b;j++){
+                if(str1[i-1]==str2[j-1]) dp[i][j]=1+dp[i-1][j-1];
+                else dp[i][j]=max(dp[a][b-1],dp[i-1][j]);
+                }
+            }
+            return dp[a][b];
+    }
+int main(){
+    int t;
+    cin>>t;
+    while(t--){
+        int a,b;
+        cin>>a>>b;
+        string str1,str2;
+        cin>>str1>>str2;
+        int ans = longest(a,b,str1,str2);
+        cout<<ans<<endl;
+        }
+    }
