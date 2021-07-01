@@ -1,0 +1,39 @@
+#include <iostream>
+#include <math.h>
+#include <algorithm>
+#include <iomanip>
+#include <set>
+#include <string.h>
+using namespace std;
+//Printing number of insertions and deletions to convert string a to string b
+int check(string str1,string str2){
+    int a = str1.length();
+    int b = str2.length();
+    int dp[a+1][b+1];
+    for(int i = 0;i<=a;i++) dp[i][0] = 0;
+    for(int i = 0;i<=b;i++) dp[0][i] = 0;
+    for(int i = 1;i<=a;i++){
+    for(int j = 1;j<=b;j++){
+    if(str1[i-1] == str2[j-1]) dp[i][j] = 1+dp[i-1][j-1];
+    else dp[i][j] = max(dp[i-1][j],dp[i][j-1]);
+    }
+    }
+    int lcs = dp[a][b];
+    int b_wale = b-lcs;
+    int a_wale = a-lcs;
+    int ans = b_wale+a_wale;
+    return ans;
+    }
+int main(){
+    int t;
+    cin>>t;
+    while(t--){
+    int a,b;
+    cin>>a>>b;
+    string str1,str2;
+    cin>>str1>>str2;
+    int result = check(str1,str2);
+    cout<<result<<endl;
+    }
+    return 0;
+    }
