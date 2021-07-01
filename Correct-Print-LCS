@@ -1,0 +1,49 @@
+#include <iostream>
+#include <math.h>
+#include <algorithm>
+#include <iomanip>
+#include <set>
+#include <string.h>
+using namespace std;
+string calc(string s1,string s2,int a,int b){
+    int dp[a+1][b+1];
+    for(int i = 0;i<=a;i++) dp[i][0] = 0;
+    for(int j = 0;j<=b;j++) dp[0][j] = 0;
+    string ans;
+    for(int i = 1;i<=a;i++){
+    for(int j = 1;j<=b;j++){
+    if(s1[i-1] == s2[j-1]){
+    dp[i][j] = 1+dp[i-1][j-1];
+    }
+    else dp[i][j] = max(dp[i-1][j],dp[i][j-1]);
+    }
+    }
+    int i = a,j = b;
+    while(i>0 && j>0){
+    if(s1[i-1] == s2[j-1]){
+    ans.push_back(s1[i-1]);
+    i--;
+    j--;
+    }
+    else{
+    if(dp[i-1][j]>dp[i][j-1]) i--;
+    else j--;
+    }
+    }
+    string results;
+    for(int k = ans.length()-1;k>=0;k--) results = results+ans[k];
+    return results;
+    }
+int main(){
+    int t;
+    cin>>t;
+    while(t--){
+    int a,b;
+    cin>>a>>b;
+    string s1,s2;
+    cin>>s1>>s2;
+    string result = calc(s1,s2,a,b);
+    cout<<result<<endl;
+    }
+    return 0;
+    }
