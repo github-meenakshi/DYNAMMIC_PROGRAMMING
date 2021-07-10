@@ -1,0 +1,21 @@
+#include <iostream>
+#include <math.h>
+#include <algorithm>
+#include <iomanip>
+using namespace std;
+//10 july -> Staircase Path(Memoization)
+int check(int n,int dp[ ]){
+    if(n == 0) return 1;
+    if(n<0) return 0;
+    if(dp[n]>0) return dp[n];
+    return dp[n] = check(n-1,dp)+check(n-2,dp);
+    }
+int main(){
+    int n;
+    cin>>n;
+    int dp[n+1]={0};
+    int ans = check(n,dp);
+    cout<<ans<<endl;
+    
+    return 0;
+    }
