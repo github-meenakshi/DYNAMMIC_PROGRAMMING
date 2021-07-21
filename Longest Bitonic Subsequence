@@ -1,0 +1,44 @@
+#include <iostream>
+#include <algorithm>
+#include <set>
+using namespace std;
+int solve(int arr[ ],int n){
+int dp1[n];
+int dp2[n];
+dp1[0] = 1;
+dp2[n-1] = 1;
+for(int i = 1;i<n;i++){
+int ele = arr[i],maxi1= 0;
+for(int j = 0;j<i;j++){
+if(arr[j]<=ele && dp1[j]>maxi1){
+maxi1 = dp1[j];
+}
+}
+dp1[i] = maxi1+1;
+}
+for(int i = n-1;i>=0;i--){
+int ele = arr[i],maxi2= 0;
+for(int j = n-1;j>i;j--){
+if(arr[j]<=ele && dp2[j]>maxi2){
+maxi2 = dp2[j];
+}
+}
+dp2[i] = maxi2+1;
+}
+int maxis = 0;
+for(int i = 0;i<n;i++){
+int curr=dp1[i]+dp2[i]-1;
+maxis = max(maxis,curr);
+}
+return maxis;
+}
+int main(){
+int n;
+cin>>n;
+int arr[n];
+for(int i = 0;i<n;i++) cin>>arr[i];
+int ans = solve(arr,n);
+cout<<ans<<endl;
+
+return 0;
+}
