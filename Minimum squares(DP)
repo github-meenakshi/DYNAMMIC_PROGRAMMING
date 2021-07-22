@@ -1,0 +1,27 @@
+#include <iostream>
+using namespace std;
+int solve(int n){
+    int dp[n+1];
+    dp[0] = 0;
+    dp[1] = 1;
+    for(int i = 2;i<=n;i++){
+        int count = 0,mini = 100000010;
+        for(int j = 1;j*j<=i;j++){
+            int sq = j*j;
+            int rem = i-sq;
+           if(dp[rem]<mini){
+               mini = dp[rem];
+               }
+            }
+            dp[i] = mini+1;
+        }
+        return dp[n];
+    }
+int main(){
+    int n;
+    cin>>n;
+    int ans = solve(n);
+    cout<<ans<<endl;
+    
+    return 0;
+    }
