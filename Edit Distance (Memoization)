@@ -1,0 +1,22 @@
+const int sizes = 110;
+int dp[sizes][sizes];
+int editDistance(string a,string b,int len1,int len2){
+    if(len1 == 0) return 0;
+    if(len2 == 0) return 0;
+    if(dp[len1][len2] != -1) return dp[len1][len2];
+    if(a[len1] == b[len2]) return dp[len1][len2] =  editDistance(a,b,len1-1,len2-1);
+    else return dp[len1][len2] = 1+min(editDistance(a,b,len1-1,len2-1),min(editDistance(a,b,len1,len2-1),editDistance(a,b,len1-1,len2)));
+    }
+int main(){
+    string a,b;
+    cin>>a>>b;
+    int len1 = a.length();
+    int len2 = b.length();
+    for(int i = 0;i<sizes;i++){
+        for(int j = 0;j<sizes;j++) dp[i][j] = -1;
+        }
+    int ans = editDistance(a,b,len1,len2);
+    cout<<ans<<endl;
+    
+    return 0;
+    }
